@@ -5,6 +5,14 @@ import './App.css';
 function App() {
   console.log('App component rendering');
   
+  // Simple test to see if component renders at all
+  const [testState, setTestState] = useState('App is loading...');
+  
+  useEffect(() => {
+    console.log('App useEffect running');
+    setTestState('App loaded successfully!');
+  }, []);
+  
   const [youtubeUrl, setYoutubeUrl] = useState('');
   const [startTime, setStartTime] = useState('00:00:00');
   const [endTime, setEndTime] = useState('00:00:10');
@@ -310,6 +318,19 @@ function App() {
 
   return (
     <div className="App">
+      {/* Test render to see if component loads */}
+      <div style={{ 
+        position: 'fixed', 
+        top: 0, 
+        left: 0, 
+        background: 'red', 
+        color: 'white', 
+        padding: '10px', 
+        zIndex: 9999 
+      }}>
+        {testState}
+      </div>
+      
       <div className="login-button">
         {!authLoading && (
           user ? (
