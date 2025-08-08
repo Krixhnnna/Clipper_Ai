@@ -1,4 +1,6 @@
 module.exports = (req, res) => {
+  console.log('Health check endpoint called');
+  
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
@@ -9,9 +11,11 @@ module.exports = (req, res) => {
     return;
   }
 
+  console.log('Health check responding with OK');
   res.json({ 
     status: 'OK', 
     message: 'Clipzy server is running',
-    features: 'Full video clipping enabled'
+    features: 'Full video clipping enabled',
+    timestamp: new Date().toISOString()
   });
 };

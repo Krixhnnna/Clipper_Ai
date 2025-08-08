@@ -3,6 +3,8 @@ import { auth, googleProvider, signInWithPopup, signOut, onAuthStateChanged } fr
 import './App.css';
 
 function App() {
+  console.log('App component rendering');
+  
   const [youtubeUrl, setYoutubeUrl] = useState('');
   const [startTime, setStartTime] = useState('00:00:00');
   const [endTime, setEndTime] = useState('00:00:10');
@@ -21,18 +23,25 @@ function App() {
 
   // Firebase auth state listener
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
+    try {
+      console.log('Setting up Firebase auth listener');
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        console.log('Auth state changed:', user ? 'User logged in' : 'No user');
+        setUser(user);
+        setAuthLoading(false);
+        if (user) {
+          // Load user's clip count from localStorage
+          const savedCount = localStorage.getItem(`clipCount_${user.uid}`);
+          setUserClipCount(savedCount ? parseInt(savedCount) : 0);
+        } else {
+          setUserClipCount(0);
+        }
+      });
+      return unsubscribe;
+    } catch (error) {
+      console.error('Error setting up Firebase auth:', error);
       setAuthLoading(false);
-      if (user) {
-        // Load user's clip count from localStorage
-        const savedCount = localStorage.getItem(`clipCount_${user.uid}`);
-        setUserClipCount(savedCount ? parseInt(savedCount) : 0);
-      } else {
-        setUserClipCount(0);
-      }
-    });
-    return unsubscribe;
+    }
   }, []);
 
   // Google login handler
