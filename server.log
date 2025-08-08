@@ -1,0 +1,14 @@
+Clipzy server running on port 3001
+✅ Full video clipping enabled - Ready to process clips!
+Clipzy: Downloading video...
+Clipzy: Trying download option 1: { quality: 'highest', filter: 'audioandvideo' }
+Clipzy: Video info retrieved successfully
+Clipzy: Download completed with option 1
+Clipzy: Processing video...
+Clipzy: Video processing completed
+Clipzy: Downloading video...
+Clipzy: Trying download option 1: { quality: 'highest', filter: 'audioandvideo' }
+Clipzy: Video info retrieved successfully
+Clipzy: Download completed with option 1
+Clipzy: Processing video...
+Clipzy: Video processing completed
