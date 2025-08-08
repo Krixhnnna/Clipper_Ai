@@ -8,7 +8,7 @@ function App() {
   const [endTime, setEndTime] = useState('00:00:10');
   const [ratio, setRatio] = useState('Original');
   const [videoInfo, setVideoInfo] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [isClipLoading, setIsClipLoading] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
@@ -88,12 +88,12 @@ function App() {
   };
 
   // Function to reset clip count (for testing)
-  const resetClipCount = () => {
-    if (user) {
-      setUserClipCount(0);
-      localStorage.removeItem(`clipCount_${user.uid}`);
-    }
-  };
+  // const resetClipCount = () => {
+  //   if (user) {
+  //     setUserClipCount(0);
+  //     localStorage.removeItem(`clipCount_${user.uid}`);
+  //   }
+  // };
 
   // Function to get ratio icon
   const getRatioIcon = (ratio) => {
@@ -138,7 +138,6 @@ function App() {
   };
 
   const fetchVideoInfo = async (videoId) => {
-    setIsLoading(true);
     try {
       const response = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`);
       const data = await response.json();
@@ -163,23 +162,16 @@ function App() {
         thumbnail: `https://img.youtube.com/vi/${videoId}/default.jpg`,
         videoId: videoId
       });
-    } finally {
-      setIsLoading(false);
     }
   };
 
-  const debouncedFetchVideoInfo = useCallback(
-    (() => {
-      let timeoutId;
-      return (videoId) => {
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => {
-          fetchVideoInfo(videoId);
-        }, 500); // 500ms delay
-      };
-    })(),
-    []
-  );
+  const debouncedFetchVideoInfo = useCallback((videoId) => {
+    let timeoutId;
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      fetchVideoInfo(videoId);
+    }, 500); // 500ms delay
+  }, []);
 
   const handleUrlChange = (e) => {
     const newUrl = e.target.value;
