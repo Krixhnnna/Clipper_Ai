@@ -10,7 +10,10 @@
     },
     {
       "src": "api/**/*.js",
-      "use": "@vercel/node"
+      "use": "@vercel/node",
+      "config": {
+        "maxDuration": 300
+      }
     }
   ],
   "routes": [
@@ -22,10 +25,5 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "functions": {
-    "api/clip-video.js": {
-      "maxDuration": 300
-    }
-  }
+  ]
 }
