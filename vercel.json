@@ -7,13 +7,6 @@
       "config": {
         "distDir": "build"
       }
-    },
-    {
-      "src": "api/**/*.js",
-      "use": "@vercel/node",
-      "config": {
-        "maxDuration": 300
-      }
     }
   ],
   "routes": [
